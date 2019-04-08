@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{45C52625-273F-42F7-9D08-21C1EBBBF6AA}</ProjectGuid>
+    <ProjectGuid>{2431DF7D-2480-4989-86DE-96BD47B75A3A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BH.Adapter.HTTP</RootNamespace>
-    <AssemblyName>HTTP_Adapter</AssemblyName>
+    <RootNamespace>BH.oM.HTTP</RootNamespace>
+    <AssemblyName>HTTP_oM</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -34,15 +34,8 @@
     <Reference Include="BHoM">
       <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
     </Reference>
-    <Reference Include="BHoM_Adapter">
-      <HintPath>..\..\BHoM_Adapter\Build\BHoM_Adapter.dll</HintPath>
-    </Reference>
-    <Reference Include="DataManipulation_oM, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="DataManipulation_oM">
       <HintPath>..\..\BHoM\Build\DataManipulation_oM.dll</HintPath>
-    </Reference>
-    <Reference Include="Reflection_Engine">
-      <HintPath>..\..\BHoM_Engine\Build\Reflection_Engine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -54,23 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CRUD\Create.cs" />
+    <Compile Include="GetQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AdapterID.cs" />
-    <Compile Include="HTTPAdapter.cs" />
-    <Compile Include="Pull.cs" />
-    <Compile Include="Push.cs" />
-    <Compile Include="Read.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HTTP_Engine\HTTP_Engine.csproj">
-      <Project>{9dd3846d-2d50-41cc-879c-0cdac1e14a07}</Project>
-      <Name>HTTP_Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HTTP_oM\HTTP_oM.csproj">
-      <Project>{2431df7d-2480-4989-86de-96bd47b75a3a}</Project>
-      <Name>HTTP_oM</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
