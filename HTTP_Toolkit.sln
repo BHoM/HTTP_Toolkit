@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTTP_Engine", "HTTP_Engine\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTTP_Adapter", "HTTP_Adapter\HTTP_Adapter.csproj", "{45C52625-273F-42F7-9D08-21C1EBBBF6AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTTP_oM", "HTTP_oM\HTTP_oM.csproj", "{2431DF7D-2480-4989-86DE-96BD47B75A3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{45C52625-273F-42F7-9D08-21C1EBBBF6AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45C52625-273F-42F7-9D08-21C1EBBBF6AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45C52625-273F-42F7-9D08-21C1EBBBF6AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2431DF7D-2480-4989-86DE-96BD47B75A3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2431DF7D-2480-4989-86DE-96BD47B75A3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2431DF7D-2480-4989-86DE-96BD47B75A3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2431DF7D-2480-4989-86DE-96BD47B75A3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
