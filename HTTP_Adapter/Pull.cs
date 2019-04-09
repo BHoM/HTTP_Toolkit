@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BH.Engine.Reflection;
+using BH.oM.Base;
 using BH.oM.DataManipulation.Queries;
 using BH.oM.HTTP;
 
@@ -55,7 +56,22 @@ namespace BH.Adapter.HTTP
 
         public IEnumerable<object> Pull(GetQuery query, Dictionary<string, object> config = null)
         {
-            return new List<object>() { Engine.HTTP.Compute.GetRequest(query) };
+            string response = Engine.HTTP.Compute.GetRequest(query);
+
+            BHoMObject obj = Engine.Serialiser.Convert.FromJson(response) as BHoMObject;
+            if (obj == null)
+            {
+                // in case the response is not a valid json, wrap it around a CustomObject
+                return new List<BHoMObject>
+                {
+                    new CustomObject()
+                    {
+                        CustomData = new Dictionary<string, object>() { { "Response", response } }
+                    }
+                };
+            }
+
+            return new List<BHoMObject> { obj }; // This is at least a CustomObject
         }
 
         /***************************************************/
