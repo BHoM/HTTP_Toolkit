@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,6 +44,12 @@ namespace BH.Adapter.HTTP
 
         public HTTPAdapter()
         {
+            System.Net.ServicePointManager.SecurityProtocol =
+                SecurityProtocolType.Ssl3 |
+                SecurityProtocolType.Tls12 |
+                SecurityProtocolType.Tls11 |
+                SecurityProtocolType.Tls;
+
             Config.SeparateProperties = true;   //Set to true to push dependant properties of objects before the main objects are being pushed. Example: push nodes before pushing bars
             Config.MergeWithComparer = true;    //Set to true to use EqualityComparers to merge objects. Example: merge nodes in the same location
             Config.ProcessInMemory = false;     //Set to false to to update objects in the toolkit during the push
@@ -54,6 +61,12 @@ namespace BH.Adapter.HTTP
 
         public HTTPAdapter(AdapterConfig config)
         {
+            System.Net.ServicePointManager.SecurityProtocol =
+                SecurityProtocolType.Ssl3 |
+                SecurityProtocolType.Tls12 |
+                SecurityProtocolType.Tls11 |
+                SecurityProtocolType.Tls;
+
             Config = config;
         }
 

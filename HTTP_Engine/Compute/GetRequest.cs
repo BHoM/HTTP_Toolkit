@@ -43,8 +43,6 @@ namespace BH.Engine.HTTP
         {
             using (HttpClient client = new HttpClient() { BaseAddress = new Uri(baseUrl) })
             {
-                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-
                 if (headers != null)
                 {
                     foreach (KeyValuePair<string, object> pair in headers)
@@ -62,7 +60,8 @@ namespace BH.Engine.HTTP
                 Engine.Reflection.Compute.RecordNote($"Performing GET request on the following uri: {response.RequestMessage}");
                 if (!response.IsSuccessStatusCode)
                 {
-                    Engine.Reflection.Compute.RecordError($"GET request failed with code {response.StatusCode}");
+                    Engine.Reflection.Compute.ClearCurrentEvents();
+                    Engine.Reflection.Compute.RecordError($"GET request failed with code {response.StatusCode}: {response.ReasonPhrase}");
                     return null;
                 }
 
