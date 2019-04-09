@@ -64,7 +64,7 @@
     <Compile Include="HTTPAdapter.cs" />
     <Compile Include="Pull.cs" />
     <Compile Include="Push.cs" />
-    <Compile Include="Read.cs" />
+    <Compile Include="CRUD\Read.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HTTP_Engine\HTTP_Engine.csproj">
