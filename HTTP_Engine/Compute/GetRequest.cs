@@ -39,14 +39,14 @@ namespace BH.Engine.HTTP
         /**** Public  Method                            ****/
         /***************************************************/
 
-        public static BHoMObject GetRequest(string baseUrl, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null)
+        public static string GetRequest(string baseUrl, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null)
         {
             using (HttpClient client = new HttpClient() { BaseAddress = new Uri(baseUrl) })
             {
                 if (headers != null)
                 {
                     foreach (KeyValuePair<string, object> pair in headers)
-                        client.DefaultRequestHeaders.Add(pair.Key, pair.Value as string);
+                        client.DefaultRequestHeaders.Add(pair.Key, pair.Value.ToString());
                 }
 
                 UriBuilder builder = new UriBuilder(baseUrl);
@@ -65,29 +65,20 @@ namespace BH.Engine.HTTP
                     return null;
                 }
 
-                string content = response.Content.ReadAsStringAsync().Result;
-
-                BHoMObject obj = Serialiser.Convert.FromJson(content) as BHoMObject;
-                if (obj == null)
-                {
-                    // in case the response is not a valid json, wrap it around a CustomObject
-                    return new CustomObject() { CustomData = new Dictionary<string, object>() { { "Response", content } } };
-                }
-
-                return obj; // This is at least a CustomObject
+                return response.Content.ReadAsStringAsync().Result;
             }
         }
 
         /***************************************************/
 
-        public static BHoMObject GetRequest(string baseUrl, CustomObject headers = null, CustomObject parameters = null)
+        public static string GetRequest(string baseUrl, CustomObject headers = null, CustomObject parameters = null)
         {
             return GetRequest(baseUrl, headers.CustomData, parameters.CustomData);
         }
 
         /***************************************************/
 
-        public static BHoMObject GetRequest(GetQuery query)
+        public static string GetRequest(GetQuery query)
         {
             return GetRequest(query.BaseUrl, query.Headers, query.Parameters);
         }
