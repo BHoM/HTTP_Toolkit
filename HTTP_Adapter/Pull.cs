@@ -44,9 +44,9 @@ namespace BH.Adapter.HTTP
 
         public IEnumerable<object> Pull(object query, Dictionary<string, object> config = null)
         {
-            Engine.Reflection.Compute.RecordError("Unknown query type {query.GetType()}.\n" +
+            Engine.Reflection.Compute.RecordError($"Unknown query type {query.GetType()}.\n" +
                 "If you are making a GET request, please use the BH.oM.HTTP.GetQuery object to specify the query.");
-            return Pull(query as dynamic, config);
+            return null;
         }
 
         /***************************************************/
