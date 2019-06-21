@@ -25,7 +25,7 @@ using BH.oM.Data.Requests;
 
 namespace BH.oM.HTTP
 {
-    public class GetQuery : IRequest
+    public class GetRequest : IRequest
     {
         /***************************************************/
         /**** Properties                                ****/

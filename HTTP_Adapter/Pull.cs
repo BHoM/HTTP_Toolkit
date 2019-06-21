@@ -33,27 +33,27 @@ namespace BH.Adapter.HTTP
         /**** Interface Methods                         ****/
         /***************************************************/
 
-        public override IEnumerable<object> Pull(IRequest query, Dictionary<string, object> config = null)
+        public override IEnumerable<object> Pull(IRequest request, Dictionary<string, object> config = null)
         {
-            return Pull(query as dynamic, config);
+            return Pull(request as dynamic, config);
         }
 
         /***************************************************/
         /**** Fallback Case                             ****/
         /***************************************************/
 
-        public IEnumerable<object> Pull(object query, Dictionary<string, object> config = null)
+        public IEnumerable<object> Pull(object request, Dictionary<string, object> config = null)
         {
-            Engine.Reflection.Compute.RecordError($"Unknown query type {query.GetType()}.\n" +
-                "If you are making a GET request, please use the BH.oM.HTTP.GetQuery object to specify the query.");
+            Engine.Reflection.Compute.RecordError($"Unknown query type {request.GetType()}.\n" +
+                "If you are making a GET request, please use the BH.oM.HTTP.GetRequest object to specify the query.");
             return null;
         }
 
         /***************************************************/
 
-        public IEnumerable<object> Pull(GetQuery query, Dictionary<string, object> config = null)
+        public IEnumerable<object> Pull(GetRequest request, Dictionary<string, object> config = null)
         {
-            string response = Engine.HTTP.Compute.GetRequest(query);
+            string response = Engine.HTTP.Compute.GetRequest(request);
 
             BHoMObject obj = Engine.Serialiser.Convert.FromJson(response) as BHoMObject;
             if (obj == null)
