@@ -21,11 +21,11 @@
  */
 
 using System.Collections.Generic;
-using BH.oM.DataManipulation.Queries;
+using BH.oM.Data.Requests;
 
 namespace BH.oM.HTTP
 {
-    public class GetQuery : IQuery
+    public class GetQuery : IRequest
     {
         /***************************************************/
         /**** Properties                                ****/

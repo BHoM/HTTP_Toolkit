@@ -22,7 +22,7 @@
 
 using System.Collections.Generic;
 using BH.oM.Base;
-using BH.oM.DataManipulation.Queries;
+using BH.oM.Data.Requests;
 using BH.oM.HTTP;
 
 namespace BH.Adapter.HTTP
@@ -33,7 +33,7 @@ namespace BH.Adapter.HTTP
         /**** Interface Methods                         ****/
         /***************************************************/
 
-        public override IEnumerable<object> Pull(IQuery query, Dictionary<string, object> config = null)
+        public override IEnumerable<object> Pull(IRequest query, Dictionary<string, object> config = null)
         {
             return Pull(query as dynamic, config);
         }
