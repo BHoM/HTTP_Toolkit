@@ -41,7 +41,7 @@ namespace BH.Engine.HTTP
 
         /***************************************************/
 
-        public static GetRequest GetQuery(string baseUrl, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null)
+        public static GetRequest GetRequest(string baseUrl, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null)
         {
             return new GetRequest
             {
@@ -53,7 +53,7 @@ namespace BH.Engine.HTTP
 
         /***************************************************/
 
-        public static GetRequest GetQuery(string baseUrl, CustomObject headers = null, CustomObject parameters = null)
+        public static GetRequest GetRequest(string baseUrl, CustomObject headers = null, CustomObject parameters = null)
         {
             return new GetRequest
             {
