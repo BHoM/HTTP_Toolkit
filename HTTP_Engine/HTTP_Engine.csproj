@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="Compute\GetRequest.cs" />
     <Compile Include="Convert\ToUrlString.cs" />
-    <Compile Include="Create\GetQuery.cs" />
+    <Compile Include="Create\GetRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
