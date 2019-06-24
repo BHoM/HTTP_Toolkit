@@ -44,8 +44,8 @@ namespace BH.Adapter.HTTP
 
         public IEnumerable<object> Pull(object request, Dictionary<string, object> config = null)
         {
-            Engine.Reflection.Compute.RecordError($"Unknown query type {request.GetType()}.\n" +
-                "If you are making a GET request, please use the BH.oM.HTTP.GetRequest object to specify the query.");
+            Engine.Reflection.Compute.RecordError($"Unknown request type {request.GetType()}.\n" +
+                "If you are making a GET request, please use the BH.oM.HTTP.GetRequest object to specify the request.");
             return null;
         }
 

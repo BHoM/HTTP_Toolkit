@@ -73,9 +73,9 @@ namespace BH.Engine.HTTP
 
         /***************************************************/
 
-        public static string GetRequest(GetRequest query)
+        public static string GetRequest(GetRequest body)
         {
-            return GetRequest(query.BaseUrl, query.Headers, query.Parameters);
+            return GetRequest(body.BaseUrl, body.Headers, body.Parameters);
         }
 
         /***************************************************/
