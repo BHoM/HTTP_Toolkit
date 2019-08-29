@@ -21,6 +21,8 @@
  */
 
 using BH.oM.Base;
+using BH.oM.HTTP;
+using System;
 using System.Collections.Generic;
 
 namespace BH.Engine.HTTP
@@ -31,12 +33,36 @@ namespace BH.Engine.HTTP
         /**** Public  Method                            ****/
         /***************************************************/
 
+        public static string ToUrlString(this GetRequest request)
+        {
+            UriBuilder builder = new UriBuilder(request.BaseUrl);
+            if (request.Parameters != null)
+            {
+                builder.Query = Convert.ToUrlString(request.Parameters);
+            }
+            return builder.Uri.AbsoluteUri;
+        }
+
+        /***************************************************/
+
+        public static string ToUrlString(string baseUrl, Dictionary<string, object> parameters)
+        {
+            UriBuilder builder = new UriBuilder(baseUrl)
+            {
+                Query = parameters == null ? "" : Convert.ToUrlString(parameters)
+            };
+
+            return builder.Uri.AbsoluteUri;
+        }
+
+        /***************************************************/
+
         public static string ToUrlString(Dictionary<string, object> data)
         {
             List<string> url = new List<string>();
             foreach (KeyValuePair<string, object> pair in data)
             {
-                url.Add($"{pair.Key}={pair.Value as string}");
+                url.Add($"{pair.Key}={pair.Value.ToString()}");
             }
             return string.Join("&", url);
         }
