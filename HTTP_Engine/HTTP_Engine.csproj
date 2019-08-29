@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compute\GetRequest.cs" />
+    <Compile Include="Compute\GetRequestAsync.cs" />
     <Compile Include="Convert\ToUrlString.cs" />
     <Compile Include="Create\GetRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
