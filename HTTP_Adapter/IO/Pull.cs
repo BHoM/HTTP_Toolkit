@@ -21,6 +21,10 @@
  */
 
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using BH.Engine.HTTP;
 using BH.oM.Base;
 using BH.oM.Data.Requests;
 using BH.oM.HTTP;
@@ -49,11 +53,14 @@ namespace BH.Adapter.HTTP
             return null;
         }
 
+
+        /***************************************************/
+        /**** Public Methods                            ****/
         /***************************************************/
 
         public IEnumerable<object> Pull(GetRequest request, Dictionary<string, object> config = null)
         {
-            string response = Engine.HTTP.Compute.GetRequest(request);
+            string response = Engine.HTTP.Compute.MakeRequest(request);
 
             BHoMObject obj = Engine.Serialiser.Convert.FromJson(response) as BHoMObject;
             if (obj == null)
@@ -69,6 +76,34 @@ namespace BH.Adapter.HTTP
             }
 
             return new List<BHoMObject> { obj }; // This is at least a CustomObject
+        }
+
+        /***************************************************/
+
+        public IEnumerable<object> Pull(BatchRequest requests, Dictionary<string, object> config = null)
+        {
+            string[] response = new string[requests.Requests.Count];
+            List<BHoMObject> result = new List<BHoMObject>();
+            using (HttpClient client = new HttpClient())
+            {
+                List<string> urls = requests.Requests.OfType<GetRequest>().Select(req => req.ToUrlString()).ToList();
+                response = Task.WhenAll(urls.Select(x => Compute.GetRequestAsync(x, client))).GetAwaiter().GetResult();
+                client.CancelPendingRequests();
+                client.Dispose();
+            }
+
+            Parallel.ForEach(response, res =>
+            {
+                BHoMObject obj = Engine.Serialiser.Convert.FromJson(res) as BHoMObject;
+                if (obj == null)
+                {
+                    Engine.Reflection.Compute.RecordNote($"{res.GetType()} failed to deserialise to a BHoMObject and is set to null." +
+                        $"Perform a request with Compute.GetRequest(string url) if you want the raw output");
+                    return; // return is equivalent to `continue` in a Paralle.ForEach
+                }
+                result.Add(obj);
+            });
+            return result;
         }
 
         /***************************************************/

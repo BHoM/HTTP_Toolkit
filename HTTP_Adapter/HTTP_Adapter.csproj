@@ -59,10 +59,9 @@
   <ItemGroup>
     <Compile Include="CRUD\Create.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AdapterID.cs" />
     <Compile Include="HTTPAdapter.cs" />
-    <Compile Include="Pull.cs" />
-    <Compile Include="Push.cs" />
+    <Compile Include="IO\Pull.cs" />
+    <Compile Include="IO\Push.cs" />
     <Compile Include="CRUD\Read.cs" />
   </ItemGroup>
   <ItemGroup>
