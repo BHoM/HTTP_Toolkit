@@ -21,10 +21,8 @@
  */
 
 using BH.oM.Base;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using BH.oM.HTTP;
 
 namespace BH.Engine.HTTP
 {
@@ -34,34 +32,30 @@ namespace BH.Engine.HTTP
         /**** Public  Method                            ****/
         /***************************************************/
 
-        public static string GetRequest(string baseUrl, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null)
+        public static string GetRequest(string uri)
         {
-            using (HttpClient client = new HttpClient() { BaseAddress = new Uri(baseUrl) })
+            using (HttpResponseMessage response = new HttpClient().GetAsync(uri).Result)
             {
-                if (headers != null)
-                {
-                    foreach (KeyValuePair<string, object> pair in headers)
-                        client.DefaultRequestHeaders.Add(pair.Key, pair.Value.ToString());
-                }
-
-                UriBuilder builder = new UriBuilder(baseUrl);
-                if (parameters != null)
-                {
-                    builder.Query = Convert.ToUrlString(parameters);
-                    client.BaseAddress = builder.Uri;
-                }
-
-                HttpResponseMessage response = client.GetAsync(baseUrl).Result;
-                Engine.Reflection.Compute.RecordNote($"Performing GET request on the following uri: {response.RequestMessage}");
+                string result = response.Content.ReadAsStringAsync().Result;
                 if (!response.IsSuccessStatusCode)
                 {
                     Engine.Reflection.Compute.ClearCurrentEvents();
                     Engine.Reflection.Compute.RecordError($"GET request failed with code {response.StatusCode}: {response.ReasonPhrase}");
                     return null;
                 }
-
-                return response.Content.ReadAsStringAsync().Result;
+                else
+                {
+                    return result;
+                }
             }
+        }
+
+        /***************************************************/
+
+        public static string GetRequest(string url, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null)
+        {
+            string uri = Convert.ToUrlString(url, parameters);
+            return GetRequest(uri);
         }
 
         /***************************************************/
@@ -69,13 +63,6 @@ namespace BH.Engine.HTTP
         public static string GetRequest(string baseUrl, CustomObject headers = null, CustomObject parameters = null)
         {
             return GetRequest(baseUrl, headers.CustomData, parameters.CustomData);
-        }
-
-        /***************************************************/
-
-        public static string GetRequest(GetRequest body)
-        {
-            return GetRequest(body.BaseUrl, body.Headers, body.Parameters);
         }
 
         /***************************************************/
