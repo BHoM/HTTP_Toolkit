@@ -62,6 +62,9 @@ namespace BH.Adapter.HTTP
         {
             string response = Engine.HTTP.Compute.MakeRequest(request);
 
+            if (response == null)
+                return new List<BHoMObject>();
+
             BHoMObject obj = Engine.Serialiser.Convert.FromJson(response) as BHoMObject;
             if (obj == null)
             {
@@ -82,9 +85,11 @@ namespace BH.Adapter.HTTP
 
         public IEnumerable<object> Pull(BatchRequest requests, Dictionary<string, object> config = null)
         {
+            HTTPAdapterConfig adapterConfig = config == null ? new HTTPAdapterConfig() : (HTTPAdapterConfig)config;
+
             string[] response = new string[requests.Requests.Count];
             List<BHoMObject> result = new List<BHoMObject>();
-            using (HttpClient client = new HttpClient())
+            using (HttpClient client = new HttpClient() { Timeout = adapterConfig.Timeout })
             {
                 List<string> urls = requests.Requests.OfType<GetRequest>().Select(req => req.ToUrlString()).ToList();
                 response = Task.WhenAll(urls.Select(x => Compute.GetRequestAsync(x, client))).GetAwaiter().GetResult();
@@ -94,12 +99,14 @@ namespace BH.Adapter.HTTP
 
             Parallel.ForEach(response, res =>
             {
+                if (res == null)
+                    return;
                 BHoMObject obj = Engine.Serialiser.Convert.FromJson(res) as BHoMObject;
                 if (obj == null)
                 {
                     Engine.Reflection.Compute.RecordNote($"{res.GetType()} failed to deserialise to a BHoMObject and is set to null." +
                         $"Perform a request with Compute.GetRequest(string url) if you want the raw output");
-                    return; // return is equivalent to `continue` in a Paralle.ForEach
+                    return; // return is equivalent to `continue` in a Parallel.ForEach
                 }
                 result.Add(obj);
             });
