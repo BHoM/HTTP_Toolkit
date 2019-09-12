@@ -58,6 +58,7 @@
     <Compile Include="Compute\MakeRequest.cs" />
     <Compile Include="Convert\ToUrlString.cs" />
     <Compile Include="Create\GetRequest.cs" />
+    <Compile Include="Create\HTTPAdapterConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
