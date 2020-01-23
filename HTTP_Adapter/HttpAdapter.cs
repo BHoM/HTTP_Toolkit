@@ -20,6 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.HTTP;
 using System.Net;
 
 namespace BH.Adapter.HTTP
@@ -48,17 +49,5 @@ namespace BH.Adapter.HTTP
 
         /***************************************************/
 
-        public HTTPAdapter(AdapterConfig config)
-        {
-            System.Net.ServicePointManager.SecurityProtocol =
-                SecurityProtocolType.Ssl3 |
-                SecurityProtocolType.Tls12 |
-                SecurityProtocolType.Tls11 |
-                SecurityProtocolType.Tls;
-
-            Config = config;
-        }
-
-        /***************************************************/
     }
 }
