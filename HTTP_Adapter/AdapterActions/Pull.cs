@@ -42,18 +42,7 @@ namespace BH.Adapter.HTTP
             PullType pullType = PullType.AdapterDefault,
             ActionConfig actionConfig = null)
         {
-            return Pull(request as dynamic, pullType, actionConfig);
-        }
-
-        /***************************************************/
-        /**** Fallback Case                             ****/
-        /***************************************************/
-
-        public IEnumerable<object> Pull(object request, PullType pullType, ActionConfig actionConfig)
-        {
-            Engine.Reflection.Compute.RecordError($"Unknown request type {request.GetType()}.\n" +
-                "If you are making a GET request, please use the BH.oM.HTTP.GetRequest object to specify the request.");
-            return null;
+            return Pull(request as dynamic, actionConfig);
         }
 
 
@@ -61,7 +50,7 @@ namespace BH.Adapter.HTTP
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public IEnumerable<object> Pull(GetRequest request, PullType pullType, ActionConfig actionConfig)
+        public IEnumerable<object> Pull(GetRequest request, ActionConfig actionConfig)
         {
             string response = Engine.HTTP.Compute.MakeRequest(request);
 
@@ -78,7 +67,7 @@ namespace BH.Adapter.HTTP
 
         /***************************************************/
 
-        public IEnumerable<object> Pull(BatchRequest requests, PullType pullType, HTTPConfig config)
+        public IEnumerable<object> Pull(BatchRequest requests, HTTPConfig config)
         {
             if (config == null)
                 config = new HTTPConfig();
@@ -107,6 +96,18 @@ namespace BH.Adapter.HTTP
                 result.Add(obj);
             });
             return result;
+        }
+
+
+        /***************************************************/
+        /**** Fallback Case                             ****/
+        /***************************************************/
+
+        public IEnumerable<object> Pull(object request, ActionConfig actionConfig)
+        {
+            Engine.Reflection.Compute.RecordError($"Unknown request type {request.GetType()}.\n" +
+                "If you are making a GET request, please use the BH.oM.HTTP.GetRequest object to specify the request.");
+            return null;
         }
 
         /***************************************************/

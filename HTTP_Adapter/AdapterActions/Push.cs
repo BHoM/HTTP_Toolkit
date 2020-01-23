@@ -38,10 +38,6 @@ namespace BH.Adapter.HTTP
             PushType pushType = PushType.AdapterDefault,
             ActionConfig actionConfig = null)
         {
-            // If unset, set the pushType to AdapterSettings' value (base AdapterSettings default is FullCRUD).
-            if (pushType == PushType.AdapterDefault)
-                pushType = m_AdapterSettings.DefaultPushType;
-
             Engine.Reflection.Compute.RecordError("POST request not implemented.");
             return new List<object>();
         }
