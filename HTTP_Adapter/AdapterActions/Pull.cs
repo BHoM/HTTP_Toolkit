@@ -25,6 +25,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using BH.Engine.HTTP;
+using BH.oM.Adapter;
 using BH.oM.Base;
 using BH.oM.Data.Requests;
 using BH.oM.HTTP;
@@ -37,16 +38,18 @@ namespace BH.Adapter.HTTP
         /**** Interface Methods                         ****/
         /***************************************************/
 
-        public override IEnumerable<object> Pull(IRequest request, Dictionary<string, object> config = null)
+        public override IEnumerable<object> Pull(IRequest request,
+            PullType pullType = PullType.AdapterDefault,
+            ActionConfig actionConfig = null)
         {
-            return Pull(request as dynamic, config);
+            return Pull(request as dynamic, pullType, actionConfig);
         }
 
         /***************************************************/
         /**** Fallback Case                             ****/
         /***************************************************/
 
-        public IEnumerable<object> Pull(object request, Dictionary<string, object> config = null)
+        public IEnumerable<object> Pull(object request, PullType pullType, ActionConfig actionConfig)
         {
             Engine.Reflection.Compute.RecordError($"Unknown request type {request.GetType()}.\n" +
                 "If you are making a GET request, please use the BH.oM.HTTP.GetRequest object to specify the request.");
@@ -58,7 +61,7 @@ namespace BH.Adapter.HTTP
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public IEnumerable<object> Pull(GetRequest request, Dictionary<string, object> config = null)
+        public IEnumerable<object> Pull(GetRequest request, PullType pullType, ActionConfig actionConfig)
         {
             string response = Engine.HTTP.Compute.MakeRequest(request);
 
@@ -83,13 +86,14 @@ namespace BH.Adapter.HTTP
 
         /***************************************************/
 
-        public IEnumerable<object> Pull(BatchRequest requests, Dictionary<string, object> config = null)
+        public IEnumerable<object> Pull(BatchRequest requests, PullType pullType, HTTPConfig config)
         {
-            HTTPAdapterConfig adapterConfig = config == null ? new HTTPAdapterConfig() : (HTTPAdapterConfig)config;
+            if (config == null)
+                config = new HTTPConfig();
 
             string[] response = new string[requests.Requests.Count];
             List<BHoMObject> result = new List<BHoMObject>();
-            using (HttpClient client = new HttpClient() { Timeout = adapterConfig.Timeout })
+            using (HttpClient client = new HttpClient() { Timeout = config.Timeout })
             {
                 List<string> urls = requests.Requests.OfType<GetRequest>().Select(req => req.ToUrlString()).ToList();
                 response = Task.WhenAll(urls.Select(x => Compute.GetRequestAsync(x, client))).GetAwaiter().GetResult();
