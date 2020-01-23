@@ -62,12 +62,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CRUD\Create.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HTTPAdapter.cs" />
     <Compile Include="AdapterActions\Pull.cs" />
     <Compile Include="AdapterActions\Push.cs" />
-    <Compile Include="CRUD\Read.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HTTP_Engine\HTTP_Engine.csproj">
