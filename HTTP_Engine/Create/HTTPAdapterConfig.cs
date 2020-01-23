@@ -31,9 +31,9 @@ namespace BH.Engine.HTTP
         /**** Public  Method                            ****/
         /***************************************************/
 
-        public static HTTPAdapterConfig HTTPAdapterConfig(double secondsToTimeout)
+        public static HTTPConfig HTTPAdapterConfig(double secondsToTimeout)
         {
-            return new HTTPAdapterConfig
+            return new HTTPConfig
             {
                 Timeout = TimeSpan.FromSeconds(secondsToTimeout)
             };
