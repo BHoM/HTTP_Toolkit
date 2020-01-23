@@ -22,11 +22,12 @@
 
 using System;
 using System.Collections.Generic;
+using BH.oM.Adapter;
 using BH.oM.Base;
 
 namespace BH.oM.HTTP
 {
-    public class HTTPAdapterConfig : BHoMObject
+    public class HTTPConfig : ActionConfig
     {
         /***************************************************/
         /**** Properties                                ****/
@@ -39,24 +40,24 @@ namespace BH.oM.HTTP
         /**** Static Operators                          ****/
         /***************************************************/
 
-        public static implicit operator Dictionary<string, object>(HTTPAdapterConfig config)
+        public static implicit operator Dictionary<string, object>(HTTPConfig config)
         {
             return new Dictionary<string, object> { { "Timeout", config.Timeout } };
         }
 
         /***************************************************/
 
-        public static explicit operator HTTPAdapterConfig(Dictionary<string, object> dic)
+        public static explicit operator HTTPConfig(Dictionary<string, object> dic)
         {
             object timeoutOut;
             if (dic != null && dic.TryGetValue("Timeout", out timeoutOut))
             {
-                return new HTTPAdapterConfig
+                return new HTTPConfig
                 {
                     Timeout = (TimeSpan)timeoutOut
                 };
             }
-            return new HTTPAdapterConfig();
+            return new HTTPConfig();
         }
 
         /***************************************************/
