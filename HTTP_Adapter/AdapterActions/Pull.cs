@@ -68,20 +68,12 @@ namespace BH.Adapter.HTTP
             if (response == null)
                 return new List<BHoMObject>();
 
-            BHoMObject obj = Engine.Serialiser.Convert.FromJson(response) as BHoMObject;
-            if (obj == null)
-            {
-                // in case the response is not a valid json, wrap it around a CustomObject
-                return new List<BHoMObject>
-                {
-                    new CustomObject()
-                    {
-                        CustomData = new Dictionary<string, object>() { { "Response", response } }
-                    }
-                };
-            }
+            // check if the response is a valid json
+            if (response.StartsWith("{") || response.StartsWith("["))
+                return new List<object>() { Engine.Serialiser.Convert.FromJson(response) };
 
-            return new List<BHoMObject> { obj }; // This is at least a CustomObject
+            else
+                return new List<object>() { response };
         }
 
         /***************************************************/
