@@ -23,6 +23,7 @@
 using BH.oM.Base;
 using System.Collections.Generic;
 using BH.Engine.Reflection;
+using BH.oM.Adapter;
 
 namespace BH.Adapter.HTTP
 {
@@ -32,10 +33,17 @@ namespace BH.Adapter.HTTP
         /**** Override Methods                          ****/
         /***************************************************/
 
-        public override List<IObject> Push(IEnumerable<IObject> objects, string tag = "", Dictionary<string, object> config = null)
+        public override List<object> Push(IEnumerable<object> objects,
+            string tag = "",
+            PushType pushType = PushType.AdapterDefault,
+            ActionConfig actionConfig = null)
         {
+            // If unset, set the pushType to AdapterSettings' value (base AdapterSettings default is FullCRUD).
+            if (pushType == PushType.AdapterDefault)
+                pushType = m_AdapterSettings.DefaultPushType;
+
             Engine.Reflection.Compute.RecordError("POST request not implemented.");
-            return new List<IObject>();
+            return new List<object>();
         }
     }
 }
