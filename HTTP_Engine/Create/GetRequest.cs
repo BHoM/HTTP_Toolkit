@@ -34,18 +34,6 @@ namespace BH.Engine.HTTP
 
         /***************************************************/
 
-        public static GetRequest GetRequest(string baseUrl, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null)
-        {
-            return new GetRequest
-            {
-                BaseUrl = baseUrl,
-                Headers = headers,
-                Parameters = parameters
-            };
-        }
-
-        /***************************************************/
-
         public static GetRequest GetRequest(string baseUrl, CustomObject headers = null, CustomObject parameters = null)
         {
             return new GetRequest
