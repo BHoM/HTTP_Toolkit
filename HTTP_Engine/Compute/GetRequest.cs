@@ -52,12 +52,14 @@ namespace BH.Engine.HTTP
 
         /***************************************************/
 
-        public static string GetRequest(string uri, Dictionary<string, object> headers = null)
+        public static string GetRequest(string uri, CustomObject headers = null)
         {
+            Dictionary<string, object> headerData = headers.CustomData;
+
             HttpClient client = new HttpClient();
 
             //Add headers
-            foreach (var kvp in headers)
+            foreach (var kvp in headerData)
             {
                 client.DefaultRequestHeaders.Add(kvp.Key, kvp.Value.ToString());
             }
@@ -84,19 +86,21 @@ namespace BH.Engine.HTTP
 
         /***************************************************/
 
-        public static string GetRequest(string url, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null)
+        public static string GetRequest(string baseUrl, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null)
         {
-            string uri = Convert.ToUrlString(url, parameters);
-            return GetRequest(uri, headers);
+            string uri = Convert.ToUrlString(baseUrl, parameters);
+            return GetRequest(uri);
         }
 
         /***************************************************/
 
         public static string GetRequest(string baseUrl, CustomObject headers = null, CustomObject parameters = null)
         {
-            return GetRequest(baseUrl, headers.CustomData, parameters.CustomData);
+            string uri = Convert.ToUrlString(baseUrl, parameters.CustomData);
+            return GetRequest(uri, headers);
         }
 
         /***************************************************/
+
     }
 }
