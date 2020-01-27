@@ -52,10 +52,42 @@ namespace BH.Engine.HTTP
 
         /***************************************************/
 
+        public static string GetRequest(string uri, Dictionary<string, object> headers = null)
+        {
+            HttpClient client = new HttpClient();
+
+            //Add headers
+            foreach (var kvp in headers)
+            {
+                client.DefaultRequestHeaders.Add(kvp.Key, kvp.Value.ToString());
+            }
+
+            //Post login auth request and return token to m_bearerKey
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri);
+
+
+            using (HttpResponseMessage response = client.SendAsync(request).Result)
+            {
+                string result = response.Content.ReadAsStringAsync().Result;
+                if (!response.IsSuccessStatusCode)
+                {
+                    Engine.Reflection.Compute.ClearCurrentEvents();
+                    Engine.Reflection.Compute.RecordError($"GET request failed with code {response.StatusCode}: {response.ReasonPhrase}");
+                    return null;
+                }
+                else
+                {
+                    return result;
+                }
+            }
+        }
+
+        /***************************************************/
+
         public static string GetRequest(string url, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null)
         {
             string uri = Convert.ToUrlString(url, parameters);
-            return GetRequest(uri);
+            return GetRequest(uri, headers);
         }
 
         /***************************************************/
