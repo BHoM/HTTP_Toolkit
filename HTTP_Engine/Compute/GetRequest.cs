@@ -57,9 +57,12 @@ namespace BH.Engine.HTTP
             HttpClient client = new HttpClient();
 
             //Add headers
-            foreach (var kvp in headers)
+            if (headers != null)
             {
-                client.DefaultRequestHeaders.Add(kvp.Key, kvp.Value.ToString());
+                foreach (var kvp in headers)
+                {
+                    client.DefaultRequestHeaders.Add(kvp.Key, kvp.Value.ToString());
+                }
             }
 
             //Post login auth request and return token to m_bearerKey
