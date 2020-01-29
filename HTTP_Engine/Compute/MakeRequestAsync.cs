@@ -1,6 +1,6 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2019, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -36,13 +36,12 @@ namespace BH.Engine.HTTP
         /**** Public  Method                            ****/
         /***************************************************/
 
-        public static string MakeRequest(GetRequest request)
+        public static Task<string> MakeRequestAsync(GetRequest request, HttpClient client = null)
         {
-            return GetRequest(request.BaseUrl, request.Headers, request.Parameters);
+            return GetRequestAsync(request.BaseUrl, request.Headers, request.Parameters, client);
         }
 
         /***************************************************/
 
     }
 }
-

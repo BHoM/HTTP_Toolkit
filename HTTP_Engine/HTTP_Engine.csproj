@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Compute\GetRequest.cs" />
     <Compile Include="Compute\GetRequestAsync.cs" />
+    <Compile Include="Compute\MakeRequestAsync.cs" />
     <Compile Include="Compute\MakeRequest.cs" />
     <Compile Include="Convert\ToUrlString.cs" />
     <Compile Include="Create\GetRequest.cs" />

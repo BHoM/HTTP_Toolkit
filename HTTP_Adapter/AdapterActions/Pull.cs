@@ -76,8 +76,8 @@ namespace BH.Adapter.HTTP
             List<BHoMObject> result = new List<BHoMObject>();
             using (HttpClient client = new HttpClient() { Timeout = config.Timeout })
             {
-                List<string> urls = requests.Requests.OfType<GetRequest>().Select(req => req.ToUrlString()).ToList();
-                response = Task.WhenAll(urls.Select(x => Compute.GetRequestAsync(x, client))).GetAwaiter().GetResult();
+                List <GetRequest> getRequests = requests.Requests.OfType<GetRequest>().ToList();
+                response = Task.WhenAll(getRequests.Select(x => Compute.MakeRequestAsync(x, client))).GetAwaiter().GetResult();
                 client.CancelPendingRequests();
                 client.Dispose();
             }

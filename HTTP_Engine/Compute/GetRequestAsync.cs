@@ -31,10 +31,10 @@ namespace BH.Engine.HTTP
     public static partial class Compute
     {
         /***************************************************/
-        /**** Public  Method                            ****/
+        /**** Private  Methods                          ****/
         /***************************************************/
 
-        public static async Task<string> GetRequestAsync(string uri, HttpClient client = null)
+        private static async Task<string> GetRequestAsync(string uri, HttpClient client = null)
         {
             if (client == null)
                 client = new HttpClient();
@@ -57,7 +57,7 @@ namespace BH.Engine.HTTP
 
         /***************************************************/
 
-        public static async Task<string> GetRequestAsync(string url, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null, HttpClient client = null)
+        private static async Task<string> GetRequestAsync(string url, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null, HttpClient client = null)
         {
             string uri = Convert.ToUrlString(url, parameters);
             return await GetRequestAsync(uri, client);
@@ -65,7 +65,7 @@ namespace BH.Engine.HTTP
 
         /***************************************************/
 
-        public static async Task<string> GetRequestAsync(string url, CustomObject headers = null, CustomObject parameters = null, HttpClient client = null)
+        private static async Task<string> GetRequestAsync(string url, CustomObject headers = null, CustomObject parameters = null, HttpClient client = null)
         {
             return await GetRequestAsync(url, headers.CustomData, parameters.CustomData, client);
         }
