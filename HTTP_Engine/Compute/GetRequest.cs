@@ -29,10 +29,10 @@ namespace BH.Engine.HTTP
     public static partial class Compute
     {
         /***************************************************/
-        /**** Public  Method                            ****/
+        /**** Private  Methods                          ****/
         /***************************************************/
 
-        public static string GetRequest(string uri)
+        private static string GetRequest(string uri)
         {
             using (HttpResponseMessage response = new HttpClient().GetAsync(uri).Result)
             {
@@ -52,7 +52,7 @@ namespace BH.Engine.HTTP
 
         /***************************************************/
 
-        public static string GetRequest(string uri, Dictionary<string, object> headers = null)
+        private static string GetRequest(string uri, Dictionary<string, object> headers = null)
         {
             HttpClient client = new HttpClient();
 
@@ -87,7 +87,7 @@ namespace BH.Engine.HTTP
 
         /***************************************************/
 
-        public static string GetRequest(string baseUrl, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null)
+        private static string GetRequest(string baseUrl, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null)
         {
             string uri = Convert.ToUrlString(baseUrl, parameters);
             return GetRequest(uri, headers);

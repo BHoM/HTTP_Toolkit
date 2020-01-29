@@ -20,56 +20,28 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.Base;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using BH.oM.HTTP;
 using System.Linq;
 using System.Threading.Tasks;
-using BH.oM.Base;
 
 namespace BH.Engine.HTTP
 {
     public static partial class Compute
     {
         /***************************************************/
-        /**** Private  Methods                          ****/
+        /**** Public  Method                            ****/
         /***************************************************/
 
-        private static async Task<string> GetRequestAsync(string uri, HttpClient client = null)
+        public static Task<string> MakeRequestAsync(GetRequest request, HttpClient client = null)
         {
-            if (client == null)
-                client = new HttpClient();
-
-            using (HttpResponseMessage response = await client.GetAsync(uri).ConfigureAwait(false))
-            {
-                string result = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    Engine.Reflection.Compute.ClearCurrentEvents();
-                    Engine.Reflection.Compute.RecordError($"GET request failed with code {response.StatusCode}: {response.ReasonPhrase}");
-                    return null;
-                }
-                else
-                {
-                    return result;
-                }
-            }
+            return GetRequestAsync(request.BaseUrl, request.Headers, request.Parameters, client);
         }
 
         /***************************************************/
 
-        private static async Task<string> GetRequestAsync(string url, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null, HttpClient client = null)
-        {
-            string uri = Convert.ToUrlString(url, parameters);
-            return await GetRequestAsync(uri, client);
-        }
-
-        /***************************************************/
-
-        private static async Task<string> GetRequestAsync(string url, CustomObject headers = null, CustomObject parameters = null, HttpClient client = null)
-        {
-            return await GetRequestAsync(url, headers.CustomData, parameters.CustomData, client);
-        }
-
-        /***************************************************/
     }
 }
