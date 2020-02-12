@@ -32,7 +32,7 @@ namespace BH.Engine.HTTP
         /***************************************************/
         /**** Private  Methods                          ****/
         /***************************************************/
-        [Deprecated("3.1", "Does not comply with BHoM Adaptor Push and Pull protocols"]
+        [Deprecated("3.1", "Does not comply with BHoM Adaptor Push and Pull protocols")]
         public static string GetRequest(string uri)
         {
             using (HttpResponseMessage response = new HttpClient().GetAsync(uri).Result)
