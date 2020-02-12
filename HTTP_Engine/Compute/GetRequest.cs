@@ -31,8 +31,8 @@ namespace BH.Engine.HTTP
         /***************************************************/
         /**** Private  Methods                          ****/
         /***************************************************/
-
-        private static string GetRequest(string uri)
+        [System.Obsolete("GetRequest is deprecated, pit does not comply with BHoM Adaptor Push and Pull protocols")]
+        public static string GetRequest(string uri)
         {
             using (HttpResponseMessage response = new HttpClient().GetAsync(uri).Result)
             {
