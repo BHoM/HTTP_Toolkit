@@ -23,6 +23,7 @@
 using BH.oM.Base;
 using System.Collections.Generic;
 using System.Net.Http;
+using BH.oM.Reflection.Attributes;
 
 namespace BH.Engine.HTTP
 {
@@ -31,7 +32,7 @@ namespace BH.Engine.HTTP
         /***************************************************/
         /**** Private  Methods                          ****/
         /***************************************************/
-        [System.Obsolete("GetRequest is deprecated, pit does not comply with BHoM Adaptor Push and Pull protocols")]
+        [Deprecated("3.1", "Does not comply with BHoM Adaptor Push and Pull protocols"]
         public static string GetRequest(string uri)
         {
             using (HttpResponseMessage response = new HttpClient().GetAsync(uri).Result)
