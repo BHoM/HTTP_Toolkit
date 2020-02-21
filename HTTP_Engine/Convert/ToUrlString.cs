@@ -67,7 +67,7 @@ namespace BH.Engine.HTTP
                 {
                     foreach(object val in (IEnumerable)pair.Value)
                     {
-                        url.Add($"{pair.Key}={val.ToString()}");
+                        url.Add($"{pair.Key}[]={val.ToString()}");
                     }
                 }
                 else {url.Add($"{pair.Key}={pair.Value.ToString()}");}
