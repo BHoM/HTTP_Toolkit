@@ -23,6 +23,7 @@
 using BH.oM.Base;
 using BH.oM.HTTP;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace BH.Engine.HTTP
@@ -62,7 +63,14 @@ namespace BH.Engine.HTTP
             List<string> url = new List<string>();
             foreach (KeyValuePair<string, object> pair in data)
             {
-                url.Add($"{pair.Key}={pair.Value.ToString()}");
+                if (typeof(IEnumerable).IsAssignableFrom(pair.Value.GetType()) && !(pair.Value is string))
+                {
+                    foreach(object val in (IEnumerable)pair.Value)
+                    {
+                        url.Add($"{pair.Key}={val.ToString()}");
+                    }
+                }
+                else {url.Add($"{pair.Key}={pair.Value.ToString()}");}
             }
             return string.Join("&", url);
         }
