@@ -66,7 +66,7 @@ namespace BH.Engine.HTTP
                 }
             }
 
-            //Post login auth request and return token to m_bearerKey
+            //Create request
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri);
 
 
