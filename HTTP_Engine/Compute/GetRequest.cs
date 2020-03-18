@@ -66,7 +66,7 @@ namespace BH.Engine.HTTP
                 }
             }
 
-            using (HttpResponseMessage response = client.GetAsync(uri,HttpCompletionOption.ResponseContentRead).Result)
+            using (HttpResponseMessage response = client.GetAsync(uri, HttpCompletionOption.ResponseContentRead).Result)
             {
                 string result = response.Content.ReadAsStringAsync().Result;
                 if (!response.IsSuccessStatusCode)
