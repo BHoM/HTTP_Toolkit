@@ -35,25 +35,35 @@ namespace BH.Engine.HTTP
         /***************************************************/
 
         public static string ToUrlString(this GetRequest request)
-        {
-            UriBuilder builder = new UriBuilder(request.BaseUrl);
+        {           
             if (request.Parameters != null)
             {
+                UriBuilder builder = new UriBuilder(request.BaseUrl);
                 builder.Query = Convert.ToUrlString(request.Parameters);
+                return builder.Uri.AbsoluteUri;
             }
-            return builder.Uri.AbsoluteUri;
+            else
+            {
+                return request.BaseUrl;
+            }
         }
 
         /***************************************************/
 
-        public static string ToUrlString(string baseUrl, Dictionary<string, object> parameters)
+        public static string ToUrlString(string baseUrl, Dictionary<string, object> parameters = null)
         {
-            UriBuilder builder = new UriBuilder(baseUrl)
+            if (parameters != null)
             {
-                Query = parameters == null ? "" : Convert.ToUrlString(parameters)
-            };
-
-            return builder.Uri.AbsoluteUri;
+                UriBuilder builder = new UriBuilder(baseUrl)
+                {
+                    Query = parameters == null ? "" : Convert.ToUrlString(parameters)
+                };
+                return builder.Uri.AbsoluteUri;
+            }
+            else
+            {
+                return baseUrl;
+            }          
         }
 
         /***************************************************/

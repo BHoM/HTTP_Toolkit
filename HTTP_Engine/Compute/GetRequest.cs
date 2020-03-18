@@ -66,11 +66,7 @@ namespace BH.Engine.HTTP
                 }
             }
 
-            //Create request
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri);
-
-
-            using (HttpResponseMessage response = client.SendAsync(request).Result)
+            using (HttpResponseMessage response = client.GetAsync(uri).Result)
             {
                 string result = response.Content.ReadAsStringAsync().Result;
                 if (!response.IsSuccessStatusCode)
