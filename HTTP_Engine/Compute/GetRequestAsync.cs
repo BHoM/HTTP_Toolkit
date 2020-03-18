@@ -39,7 +39,7 @@ namespace BH.Engine.HTTP
             if (client == null)
                 client = new HttpClient();
 
-            using (HttpResponseMessage response = await client.GetAsync(uri).ConfigureAwait(false))
+            using (HttpResponseMessage response = await client.GetAsync(uri, HttpCompletionOption.ResponseContentRead).ConfigureAwait(false))
             {
                 string result = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
