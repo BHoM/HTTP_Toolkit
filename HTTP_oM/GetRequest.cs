@@ -31,11 +31,11 @@ namespace BH.oM.HTTP
         /**** Properties                                ****/
         /***************************************************/
 
-        public string BaseUrl { get; set; } = "";
+        public virtual string BaseUrl { get; set; } = "";
 
-        public Dictionary<string, object> Headers { get; set; } = new Dictionary<string, object>();
+        public virtual Dictionary<string, object> Headers { get; set; } = new Dictionary<string, object>();
 
-        public Dictionary<string, object> Parameters { get; set; } = new Dictionary<string, object>();
+        public virtual Dictionary<string, object> Parameters { get; set; } = new Dictionary<string, object>();
 
         /***************************************************/
     }
