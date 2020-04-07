@@ -33,7 +33,7 @@ namespace BH.oM.HTTP
         /**** Properties                                ****/
         /***************************************************/
 
-        public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(100);
+        public virtual TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(100);
 
 
         /***************************************************/
