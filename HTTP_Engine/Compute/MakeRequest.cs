@@ -43,6 +43,13 @@ namespace BH.Engine.HTTP
 
         /***************************************************/
 
+        public static byte[] MakeRequestBinary(GetRequest request)
+        {
+            return GetRequestBinary(request.BaseUrl, request.Headers, request.Parameters);
+        }
+
+        /***************************************************/
+
     }
 }
 
