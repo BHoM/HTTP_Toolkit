@@ -92,6 +92,45 @@ namespace BH.Engine.HTTP
 
         /***************************************************/
 
+        private static byte[] GetRequestBinary(string uri, Dictionary<string, object> headers = null)
+        {
+            HttpClient client = new HttpClient();
+
+            //Add headers
+            if (headers != null)
+            {
+                foreach (var kvp in headers)
+                {
+                    client.DefaultRequestHeaders.Add(kvp.Key, kvp.Value.ToString());
+                }
+            }
+
+            using (HttpResponseMessage response = client.GetAsync(uri, HttpCompletionOption.ResponseContentRead).Result)
+            {
+                byte[] result = response.Content.ReadAsByteArrayAsync().Result;
+                if (!response.IsSuccessStatusCode)
+                {
+                    Engine.Reflection.Compute.ClearCurrentEvents();
+                    Engine.Reflection.Compute.RecordError($"GET request failed with code {response.StatusCode}: {response.ReasonPhrase}");
+                    return null;
+                }
+                else
+                {
+                    return result;
+                }
+            }
+        }
+
+        /***************************************************/
+
+        private static byte[] GetRequestBinary(string baseUrl, Dictionary<string, object> headers = null, Dictionary<string, object> parameters = null)
+        {
+            string uri = Convert.ToUrlString(baseUrl, parameters);
+            return GetRequestBinary(uri, headers);
+        }
+
+        /***************************************************/
+
     }
 }
 
