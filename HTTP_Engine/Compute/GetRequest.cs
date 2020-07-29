@@ -68,7 +68,6 @@ namespace BH.Engine.HTTP
 
             using (HttpResponseMessage response = client.GetAsync(uri, HttpCompletionOption.ResponseContentRead).Result)
             {
-                string result = response.Content.ReadAsStringAsync().Result;
                 if (!response.IsSuccessStatusCode)
                 {
                     Engine.Reflection.Compute.ClearCurrentEvents();
@@ -77,6 +76,7 @@ namespace BH.Engine.HTTP
                 }
                 else
                 {
+                    string result = response.Content.ReadAsStringAsync().Result;
                     return result;
                 }
             }
@@ -107,7 +107,6 @@ namespace BH.Engine.HTTP
 
             using (HttpResponseMessage response = client.GetAsync(uri, HttpCompletionOption.ResponseContentRead).Result)
             {
-                byte[] result = response.Content.ReadAsByteArrayAsync().Result;
                 if (!response.IsSuccessStatusCode)
                 {
                     Engine.Reflection.Compute.ClearCurrentEvents();
@@ -116,6 +115,7 @@ namespace BH.Engine.HTTP
                 }
                 else
                 {
+                    byte[] result = response.Content.ReadAsByteArrayAsync().Result;
                     return result;
                 }
             }
