@@ -2,7 +2,7 @@
 
 # HTTP_Toolkit
 
-This toolkit allows interoperability between the BHoM and HTTPClient operations. It is generally used in combination with another toolkit, such as the CarbonQueryDatabase_Toolkit, in order to interact with a specific HTTP-based platform.
+This toolkit allows interoperability between the BHoM and HTTPClient operations. It is generally used in combination with other toolkits in order to interact with a specific HTTP-based platform.
 
 
 ### Documentation
