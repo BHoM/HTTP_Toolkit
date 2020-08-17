@@ -26,7 +26,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace BH.Engine.HTTP
+namespace BH.Engine.Adapters.HTTP
 {
     public static partial class Convert
     {

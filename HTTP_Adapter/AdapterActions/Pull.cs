@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using BH.Engine.HTTP;
+using BH.Engine.Adapters.HTTP;
 using BH.oM.Adapter;
 using BH.oM.Base;
 using BH.oM.Data.Requests;
@@ -52,7 +52,7 @@ namespace BH.Adapter.HTTP
 
         public IEnumerable<object> Pull(GetRequest request, ActionConfig actionConfig)
         {
-            string response = Engine.HTTP.Compute.MakeRequest(request);
+            string response = Compute.MakeRequest(request);
 
             if (response == null)
                 return new List<BHoMObject>();
