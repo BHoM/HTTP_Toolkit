@@ -24,7 +24,7 @@ using BH.oM.Base;
 using System.Collections.Generic;
 using BH.oM.Adapters.HTTP;
 
-namespace BH.Engine.HTTP
+namespace BH.Engine.Adapters.HTTP
 {
     public static partial class Create
     {

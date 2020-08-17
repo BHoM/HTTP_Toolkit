@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using BH.oM.Reflection.Attributes;
 
-namespace BH.Engine.HTTP
+namespace BH.Engine.Adapters.HTTP
 {
     public static partial class Compute
     {

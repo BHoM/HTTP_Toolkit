@@ -26,7 +26,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BH.oM.Base;
 
-namespace BH.Engine.HTTP
+namespace BH.Engine.Adapters.HTTP
 {
     public static partial class Compute
     {
