@@ -7,7 +7,7 @@
     <ProjectGuid>{9DD3846D-2D50-41CC-879C-0CDAC1E14A07}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BH.Engine.HTTP</RootNamespace>
+    <RootNamespace>BH.Engine.Adapters.HTTP</RootNamespace>
     <AssemblyName>HTTP_Engine</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
