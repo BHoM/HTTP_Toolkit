@@ -21,7 +21,7 @@
  */
 
 using System;
-using BH.oM.HTTP;
+using BH.oM.Adapters.HTTP;
 
 namespace BH.Engine.HTTP
 {

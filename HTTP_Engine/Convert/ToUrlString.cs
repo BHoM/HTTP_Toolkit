@@ -21,7 +21,7 @@
  */
 
 using BH.oM.Base;
-using BH.oM.HTTP;
+using BH.oM.Adapters.HTTP;
 using System;
 using System.Collections;
 using System.Collections.Generic;

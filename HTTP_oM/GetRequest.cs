@@ -23,7 +23,7 @@
 using System.Collections.Generic;
 using BH.oM.Data.Requests;
 
-namespace BH.oM.HTTP
+namespace BH.oM.Adapters.HTTP
 {
     public class GetRequest : IRequest
     {

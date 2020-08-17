@@ -28,7 +28,7 @@ using BH.Engine.HTTP;
 using BH.oM.Adapter;
 using BH.oM.Base;
 using BH.oM.Data.Requests;
-using BH.oM.HTTP;
+using BH.oM.Adapters.HTTP;
 
 namespace BH.Adapter.HTTP
 {
@@ -106,7 +106,7 @@ namespace BH.Adapter.HTTP
         public IEnumerable<object> Pull(object request, ActionConfig actionConfig)
         {
             Engine.Reflection.Compute.RecordError($"Unknown request type {request.GetType()}.\n" +
-                "If you are making a GET request, please use the BH.oM.HTTP.GetRequest object to specify the request.");
+                "If you are making a GET request, please use the BH.oM.Adapters.HTTP.GetRequest object to specify the request.");
             return null;
         }
 

@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using BH.oM.Adapter;
 using BH.oM.Base;
 
-namespace BH.oM.HTTP
+namespace BH.oM.Adapters.HTTP
 {
     public class HTTPConfig : ActionConfig
     {
