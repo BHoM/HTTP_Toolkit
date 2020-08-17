@@ -24,7 +24,7 @@ using BH.oM.Base;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using BH.oM.HTTP;
+using BH.oM.Adapters.HTTP;
 using System.Linq;
 using System.Threading.Tasks;
 
