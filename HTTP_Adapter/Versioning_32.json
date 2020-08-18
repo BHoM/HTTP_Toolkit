@@ -1,11 +1,11 @@
 {
   "Namespace": {
     "ToNew": {
-      "BH.oM.HTTP":  "BH.oM.Adapters.HTTP"
+      "BH.oM.HTTP":  "BH.oM.Adapters.HTTP",
 	  "BH.Engine.HTTP":  "BH.Engine.Adapters.HTTP"
     },
     "ToOld": {
-      "BH.oM.Adapters.HTTP":  "BH.oM.HTTP"
+      "BH.oM.Adapters.HTTP":  "BH.oM.HTTP",
 	  "BH.Engine.Adapters.HTTP":  "BH.Engine.HTTP"
     }
   },
