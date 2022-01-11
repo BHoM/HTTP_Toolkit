@@ -38,7 +38,7 @@ namespace BH.Adapter.HTTP
             PushType pushType = PushType.AdapterDefault,
             ActionConfig actionConfig = null)
         {
-            Engine.Reflection.Compute.RecordError("POST request not implemented.");
+            Engine.Base.Compute.RecordError("POST request not implemented.");
             return new List<object>();
         }
     }

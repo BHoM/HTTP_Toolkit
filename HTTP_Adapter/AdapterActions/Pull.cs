@@ -89,7 +89,7 @@ namespace BH.Adapter.HTTP
                 BHoMObject obj = Engine.Serialiser.Convert.FromJson(res) as BHoMObject;
                 if (obj == null)
                 {
-                    Engine.Reflection.Compute.RecordNote($"{res.GetType()} failed to deserialise to a BHoMObject and is set to null." +
+                    Engine.Base.Compute.RecordNote($"{res.GetType()} failed to deserialise to a BHoMObject and is set to null." +
                         $"Perform a request with Compute.GetRequest(string url) if you want the raw output");
                     return; // return is equivalent to `continue` in a Parallel.ForEach
                 }
@@ -105,7 +105,7 @@ namespace BH.Adapter.HTTP
 
         public IEnumerable<object> Pull(object request, ActionConfig actionConfig)
         {
-            Engine.Reflection.Compute.RecordError($"Unknown request type {request.GetType()}.\n" +
+            Engine.Base.Compute.RecordError($"Unknown request type {request.GetType()}.\n" +
                 "If you are making a GET request, please use the BH.oM.Adapters.HTTP.GetRequest object to specify the request.");
             return null;
         }
