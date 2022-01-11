@@ -44,8 +44,8 @@ namespace BH.Engine.Adapters.HTTP
                 string result = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
-                    Engine.Reflection.Compute.ClearCurrentEvents();
-                    Engine.Reflection.Compute.RecordError($"GET request failed with code {response.StatusCode}: {response.ReasonPhrase}");
+                    Engine.Base.Compute.ClearCurrentEvents();
+                    Engine.Base.Compute.RecordError($"GET request failed with code {response.StatusCode}: {response.ReasonPhrase}");
                     return null;
                 }
                 else

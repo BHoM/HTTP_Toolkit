@@ -23,36 +23,12 @@
 using BH.oM.Base;
 using System.Collections.Generic;
 using System.Net.Http;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base.Attributes;
 
 namespace BH.Engine.Adapters.HTTP
 {
     public static partial class Compute
     {
-        /***************************************************/
-        /**** Private  Methods                          ****/
-        /***************************************************/
-        [Deprecated("3.1", "Does not comply with BHoM Adaptor Push and Pull protocols")]
-        public static string GetRequest(string uri)
-        {
-            using (HttpResponseMessage response = new HttpClient().GetAsync(uri).Result)
-            {
-                string result = response.Content.ReadAsStringAsync().Result;
-                if (!response.IsSuccessStatusCode)
-                {
-                    Engine.Reflection.Compute.ClearCurrentEvents();
-                    Engine.Reflection.Compute.RecordError($"GET request failed with code {response.StatusCode}: {response.ReasonPhrase}");
-                    return null;
-                }
-                else
-                {
-                    return result;
-                }
-            }
-        }
-
-        /***************************************************/
-
         private static string GetRequest(string uri, Dictionary<string, object> headers = null)
         {
             HttpClient client = new HttpClient();
@@ -70,8 +46,8 @@ namespace BH.Engine.Adapters.HTTP
             {
                 if (!response.IsSuccessStatusCode)
                 {
-                    Engine.Reflection.Compute.ClearCurrentEvents();
-                    Engine.Reflection.Compute.RecordError($"GET request failed with code {response.StatusCode}: {response.ReasonPhrase}");
+                    Engine.Base.Compute.ClearCurrentEvents();
+                    Engine.Base.Compute.RecordError($"GET request failed with code {response.StatusCode}: {response.ReasonPhrase}");
                     return null;
                 }
                 else
@@ -109,8 +85,8 @@ namespace BH.Engine.Adapters.HTTP
             {
                 if (!response.IsSuccessStatusCode)
                 {
-                    Engine.Reflection.Compute.ClearCurrentEvents();
-                    Engine.Reflection.Compute.RecordError($"GET request failed with code {response.StatusCode}: {response.ReasonPhrase}");
+                    Engine.Base.Compute.ClearCurrentEvents();
+                    Engine.Base.Compute.RecordError($"GET request failed with code {response.StatusCode}: {response.ReasonPhrase}");
                     return null;
                 }
                 else
