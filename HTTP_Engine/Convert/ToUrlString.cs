@@ -87,7 +87,7 @@ namespace BH.Engine.Adapters.HTTP
 
         /***************************************************/
 
-        public static string ToUrlString(CustomObject obj)
+        public static string ToUrlString(this CustomObject obj)
         {
             return ToUrlString(obj.CustomData);
         }
