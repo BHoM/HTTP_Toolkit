@@ -68,7 +68,7 @@ namespace BH.Engine.Adapters.HTTP
 
         /***************************************************/
 
-        public static string ToUrlString(this Dictionary<string, object> data)
+        public static string ToUrlString(Dictionary<string, object> data)
         {
             List<string> url = new List<string>();
             foreach (KeyValuePair<string, object> pair in data)
