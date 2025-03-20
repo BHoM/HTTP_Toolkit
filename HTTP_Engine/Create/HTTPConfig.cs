@@ -22,6 +22,7 @@
 
 using System;
 using BH.oM.Adapters.HTTP;
+using BH.oM.Base.Attributes;
 
 namespace BH.Engine.Adapters.HTTP
 {
@@ -31,7 +32,8 @@ namespace BH.Engine.Adapters.HTTP
         /**** Public  Method                            ****/
         /***************************************************/
 
-        public static HTTPConfig HTTPAdapterConfig(double secondsToTimeout)
+        [PreviousVersion("8.1", "BH.Engine.Adapters.HTTP.Create.HTTPAdapterConfig(System.Double)")]
+        public static HTTPConfig HTTPConfig(double secondsToTimeout)
         {
             return new HTTPConfig
             {
