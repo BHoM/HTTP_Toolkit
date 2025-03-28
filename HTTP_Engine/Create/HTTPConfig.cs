@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2024, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -22,6 +22,7 @@
 
 using System;
 using BH.oM.Adapters.HTTP;
+using BH.oM.Base.Attributes;
 
 namespace BH.Engine.Adapters.HTTP
 {
@@ -31,7 +32,8 @@ namespace BH.Engine.Adapters.HTTP
         /**** Public  Method                            ****/
         /***************************************************/
 
-        public static HTTPConfig HTTPAdapterConfig(double secondsToTimeout)
+        [PreviousVersion("8.1", "BH.Engine.Adapters.HTTP.Create.HTTPAdapterConfig(System.Double)")]
+        public static HTTPConfig HTTPConfig(double secondsToTimeout)
         {
             return new HTTPConfig
             {
@@ -42,6 +44,7 @@ namespace BH.Engine.Adapters.HTTP
         /***************************************************/
     }
 }
+
 
 
 
