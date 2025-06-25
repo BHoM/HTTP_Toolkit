@@ -32,7 +32,6 @@ namespace BH.Engine.Adapters.HTTP
         /**** Public  Method                            ****/
         /***************************************************/
 
-        [PreviousVersion("8.1", "BH.Engine.Adapters.HTTP.Create.HTTPAdapterConfig(System.Double)")]
         public static HTTPConfig HTTPConfig(double secondsToTimeout)
         {
             return new HTTPConfig
