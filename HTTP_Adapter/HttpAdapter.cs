@@ -40,11 +40,9 @@ namespace BH.Adapter.HTTP
 
         public HTTPAdapter()
         {
-            System.Net.ServicePointManager.SecurityProtocol =
-                SecurityProtocolType.Ssl3 |
-                SecurityProtocolType.Tls12 |
-                SecurityProtocolType.Tls11 |
-                SecurityProtocolType.Tls;
+            // Use TLS 1.2 and TLS 1.3 (if available). Deprecated protocols not supported any longer: SSL3, TLS 1.0, TLS 1.1.
+            // TLS 1.2 is widely supported and secure. TLS 1.3 may not be available in all .NET Framework versions.
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 |  (SecurityProtocolType)3072; // 3072 = Tls13
         }
 
         /***************************************************/
