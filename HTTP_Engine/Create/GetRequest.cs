@@ -21,7 +21,9 @@
  */
 
 using BH.oM.Base;
+using BH.oM.Base.Attributes;
 using System.Collections.Generic;
+using System.ComponentModel;
 using BH.oM.Adapters.HTTP;
 
 namespace BH.Engine.Adapters.HTTP
@@ -32,8 +34,11 @@ namespace BH.Engine.Adapters.HTTP
         /**** Public  Method                            ****/
         /***************************************************/
 
-        /***************************************************/
-
+        [Description("Creates a GetRequest object with the specified URL, headers and parameters.")]
+        [Input("baseUrl", "The base URL for the GET request.")]
+        [Input("headers", "Optional headers to include in the request.")]
+        [Input("parameters", "Optional query parameters to include in the request.")]
+        [Output("request", "A GetRequest object configured with the provided URL, headers and parameters.")]
         public static GetRequest GetRequest(string baseUrl, CustomObject headers = null, CustomObject parameters = null)
         {
             return new GetRequest

@@ -21,10 +21,12 @@
  */
 
 using BH.oM.Base;
+using BH.oM.Base.Attributes;
 using BH.oM.Adapters.HTTP;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.Engine.Adapters.HTTP
 {
@@ -34,8 +36,11 @@ namespace BH.Engine.Adapters.HTTP
         /**** Public  Method                            ****/
         /***************************************************/
 
+        [Description("Converts a GetRequest to a full URL string by combining the base URL with query parameters.")]
+        [Input("request", "The GET request containing the base URL and parameters to convert.")]
+        [Output("url", "The full URL string with query parameters appended.")]
         public static string ToUrlString(this GetRequest request)
-        {           
+        {
             if (request.Parameters != null)
             {
                 UriBuilder builder = new UriBuilder(request.BaseUrl);
@@ -50,6 +55,10 @@ namespace BH.Engine.Adapters.HTTP
 
         /***************************************************/
 
+        [Description("Converts a base URL and parameters dictionary to a full URL string.")]
+        [Input("baseUrl", "The base URL to use.")]
+        [Input("parameters", "Optional dictionary of query parameters to append to the URL.")]
+        [Output("url", "The full URL string with query parameters appended.")]
         public static string ToUrlString(string baseUrl, Dictionary<string, object> parameters = null)
         {
             if (parameters != null)
@@ -68,6 +77,9 @@ namespace BH.Engine.Adapters.HTTP
 
         /***************************************************/
 
+        [Description("Converts a dictionary of key-value pairs to a URL query string.")]
+        [Input("data", "Dictionary of key-value pairs to convert to query string format.")]
+        [Output("queryString", "The URL query string representation of the dictionary.")]
         public static string ToUrlString(Dictionary<string, object> data)
         {
             List<string> url = new List<string>();
@@ -87,6 +99,9 @@ namespace BH.Engine.Adapters.HTTP
 
         /***************************************************/
 
+        [Description("Converts a CustomObject to a URL query string using its CustomData dictionary.")]
+        [Input("obj", "The CustomObject whose CustomData will be converted to a query string.")]
+        [Output("queryString", "The URL query string representation of the CustomObject's data.")]
         public static string ToUrlString(this CustomObject obj)
         {
             return ToUrlString(obj.CustomData);

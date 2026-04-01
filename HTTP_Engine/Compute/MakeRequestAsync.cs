@@ -21,8 +21,10 @@
  */
 
 using BH.oM.Base;
+using BH.oM.Base.Attributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Net.Http;
 using BH.oM.Adapters.HTTP;
 using System.Linq;
@@ -36,6 +38,10 @@ namespace BH.Engine.Adapters.HTTP
         /**** Public  Method                            ****/
         /***************************************************/
 
+        [Description("Makes an asynchronous HTTP GET request and returns the response content as a string.")]
+        [Input("request", "The GET request object containing the base URL, headers and parameters.")]
+        [Input("client", "Optional HTTP client to use for the request. If null, a new client will be created.")]
+        [Output("response", "A task representing the asynchronous operation, with the response content as a string.")]
         public static Task<string> MakeRequestAsync(GetRequest request, HttpClient client = null)
         {
             return GetRequestAsync(request.BaseUrl, request.Headers, request.Parameters, client);
