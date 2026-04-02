@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using BH.oM.Adapters.HTTP;
 using BH.oM.Base.Attributes;
 
@@ -32,6 +33,9 @@ namespace BH.Engine.Adapters.HTTP
         /**** Public  Method                            ****/
         /***************************************************/
 
+        [Description("Creates an HTTPConfig with the specified timeout duration.")]
+        [Input("secondsToTimeout", "The number of seconds before the HTTP request times out.")]
+        [Output("config", "An HTTPConfig object configured with the specified timeout.")]
         public static HTTPConfig HTTPConfig(double secondsToTimeout)
         {
             return new HTTPConfig
@@ -43,6 +47,7 @@ namespace BH.Engine.Adapters.HTTP
         /***************************************************/
     }
 }
+
 
 
 

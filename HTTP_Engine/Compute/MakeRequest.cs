@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -21,8 +21,10 @@
  */
 
 using BH.oM.Base;
+using BH.oM.Base.Attributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Net.Http;
 using BH.oM.Adapters.HTTP;
 using System.Linq;
@@ -36,6 +38,9 @@ namespace BH.Engine.Adapters.HTTP
         /**** Public  Method                            ****/
         /***************************************************/
 
+        [Description("Makes an HTTP GET request and returns the response content as a string.")]
+        [Input("request", "The GET request object containing the base URL, headers and parameters.")]
+        [Output("response", "The response content as a string.")]
         public static string MakeRequest(GetRequest request)
         {
             return GetRequest(request.BaseUrl, request.Headers, request.Parameters);
@@ -43,6 +48,9 @@ namespace BH.Engine.Adapters.HTTP
 
         /***************************************************/
 
+        [Description("Makes an HTTP GET request and returns the response content as a byte array.")]
+        [Input("request", "The GET request object containing the base URL, headers and parameters.")]
+        [Output("response", "The response content as a byte array.")]
         public static byte[] MakeRequestBinary(GetRequest request)
         {
             return GetRequestBinary(request.BaseUrl, request.Headers, request.Parameters);
@@ -52,6 +60,7 @@ namespace BH.Engine.Adapters.HTTP
 
     }
 }
+
 
 
 

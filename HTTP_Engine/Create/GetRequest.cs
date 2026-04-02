@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -21,7 +21,9 @@
  */
 
 using BH.oM.Base;
+using BH.oM.Base.Attributes;
 using System.Collections.Generic;
+using System.ComponentModel;
 using BH.oM.Adapters.HTTP;
 
 namespace BH.Engine.Adapters.HTTP
@@ -32,8 +34,11 @@ namespace BH.Engine.Adapters.HTTP
         /**** Public  Method                            ****/
         /***************************************************/
 
-        /***************************************************/
-
+        [Description("Creates a GetRequest object with the specified URL, headers and parameters.")]
+        [Input("baseUrl", "The base URL for the GET request.")]
+        [Input("headers", "Optional headers to include in the request.")]
+        [Input("parameters", "Optional query parameters to include in the request.")]
+        [Output("request", "A GetRequest object configured with the provided URL, headers and parameters.")]
         public static GetRequest GetRequest(string baseUrl, CustomObject headers = null, CustomObject parameters = null)
         {
             return new GetRequest
@@ -47,6 +52,7 @@ namespace BH.Engine.Adapters.HTTP
         /***************************************************/
     }
 }
+
 
 
 
