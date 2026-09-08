@@ -20,10 +20,20 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Base;
-using System.Collections.Generic;
 using BH.Engine.Reflection;
+using BH.Engine.Serialiser;
 using BH.oM.Adapter;
+using BH.oM.Adapters.HTTP;
+using BH.oM.Base;
+using BH.oM.Data.Requests;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace BH.Adapter.HTTP
 {
@@ -33,20 +43,38 @@ namespace BH.Adapter.HTTP
         /**** Override Methods                          ****/
         /***************************************************/
 
-        public override List<object> Push(IEnumerable<object> objects,
-            string tag = "",
-            PushType pushType = PushType.AdapterDefault,
-            ActionConfig actionConfig = null)
+        public override List<object> Push(IEnumerable<object> objects, string tag = "", PushType pushType = PushType.AdapterDefault, ActionConfig actionConfig = null)
         {
-            Engine.Base.Compute.RecordError("POST request not implemented.");
-            return new List<object>();
+            if (!(actionConfig is HttpPushConfig pushConfig))
+            {
+                BH.Engine.Base.Compute.RecordWarning("Provided ActionConfig was not an HttpPushConfig, running with default push config arguments:\nRequestURI=\"\"\nForcePostAsList=false\nDeserialiseAsBHoM=true");
+                pushConfig = new HttpPushConfig();
+            }
+
+            Uri requestUri = ConstructUri(pushConfig.RequestURL, pushConfig.Parameters);
+
+            HttpRequestMessage requestMessage = Create.ConstructHttpRequestMessage(HttpMethod.Post, requestUri, pushConfig.Headers);
+
+            if (objects.Count() == 1 & !pushConfig.ForcePostAsList)
+                Compute.AddBHoMContent(ref requestMessage, objects.Single());
+            else
+                Compute.AddBHoMContent(ref requestMessage, objects);
+
+            using (HttpResponseMessage response = m_httpClient.SendAsync(requestMessage).ConfigureAwait(false).GetAwaiter().GetResult())
+            {
+                //assert success
+                if (!response.IsSuccessStatusCode)
+                {
+                    Engine.Base.Compute.RecordError($"POST request failed with code {response.StatusCode}: {response.ReasonPhrase}");
+                    return new List<object>();
+                }
+
+                if (pushConfig.ForceDeserialiseAsBHoM || response.Content.Headers.ContentType.MediaType == "application/bhom")
+                    return Compute.DeserialiseAsBHoMAsync(response).ConfigureAwait(false).GetAwaiter().GetResult();
+
+                string responseString = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+                return new List<object>() { responseString };
+            }
         }
     }
 }
-
-
-
-
-
-
-
