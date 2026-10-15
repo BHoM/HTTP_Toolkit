@@ -50,10 +50,10 @@ namespace BH.Adapter.HTTP
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public IEnumerable<object> Pull(GetRequest request, HttpPullConfig actionConfig)
+        public IEnumerable<object> Pull(GetRequest request, ActionConfig actionConfig)
         {
-            if (actionConfig == null)
-                actionConfig = new HttpPullConfig();
+            if (!(actionConfig is HttpPullConfig config))
+                config = new HttpPullConfig();
 
             Uri requestUri = ConstructUri(request.BaseUrl, request.Parameters);
 
@@ -68,7 +68,7 @@ namespace BH.Adapter.HTTP
                     return new List<object>();
                 }
 
-                if (actionConfig.ForceDeserialiseAsBHoM || response.Content.Headers.ContentType.MediaType == "application/bhom")
+                if (config.ForceDeserialiseAsBHoM || response.Content.Headers.ContentType.MediaType == "application/bhom")
                     return Compute.DeserialiseAsBHoMAsync(response).ConfigureAwait(false).GetAwaiter().GetResult();
 
                 string responseString = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
@@ -78,9 +78,9 @@ namespace BH.Adapter.HTTP
 
         /***************************************************/
 
-        public IEnumerable<object> Pull(BatchRequest requests, HTTPConfig config)
+        public IEnumerable<object> Pull(BatchRequest requests, ActionConfig actionConfig)
         {
-            if (config == null)
+            if (!(actionConfig is HTTPConfig config))
                 config = new HTTPConfig();
 
             string[] response = new string[requests.Requests.Count];
