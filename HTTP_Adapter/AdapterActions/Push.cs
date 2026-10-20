@@ -56,9 +56,9 @@ namespace BH.Adapter.HTTP
             HttpRequestMessage requestMessage = Create.ConstructHttpRequestMessage(HttpMethod.Post, requestUri, pushConfig.Headers);
 
             if (objects.Count() == 1 & !pushConfig.ForcePostAsList)
-                Compute.AddBHoMContent(ref requestMessage, objects.Single());
+                Compute.AddBHoMContent(ref requestMessage, objects.Single(), pushConfig.PushedContentType);
             else
-                Compute.AddBHoMContent(ref requestMessage, objects);
+                Compute.AddBHoMContent(ref requestMessage, objects, pushConfig.PushedContentType);
 
             using (HttpResponseMessage response = m_httpClient.SendAsync(requestMessage).ConfigureAwait(false).GetAwaiter().GetResult())
             {

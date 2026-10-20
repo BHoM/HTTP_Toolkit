@@ -29,10 +29,10 @@ namespace BH.Adapter.HTTP
 {
     public static partial class Compute
     {
-        public static void AddBHoMContent(ref HttpRequestMessage message, object value)
+        public static void AddBHoMContent(ref HttpRequestMessage message, object value, string contentType = "application/bhom")
         {
             string json = BH.Engine.Serialiser.Convert.ToJson(value);
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/bhom");
+            StringContent content = new StringContent(json, Encoding.UTF8, contentType);
             message.Content = content;
         }
     }

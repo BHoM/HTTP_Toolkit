@@ -36,6 +36,9 @@ namespace BH.oM.Adapters.HTTP
         [Description("If only one object is provided to the Push, this forces the adapter to push it as a json array instead of a single object. By default the adapter will push single objects alone instead of as a list.")]
         public virtual bool ForcePostAsList { get; set; } = false;
 
+        [Description("Defines the content type of the POST message. If the endpoint being sent to does not directly accept application/bhom as a content-type, it can be changed here. Most likely changed to 'application/json'.")]
+        public virtual string PushedContentType { get; set; } = "application/bhom";
+
         [Description("If the response from the POST request is expected to be a BHoM object but doesn't have content type of 'application/bhom', this forces the adapter to deserialise the result as BHoM formatted json. Otherwise the adapter returns the response content as a string.")]
         public virtual bool ForceDeserialiseAsBHoM { get; set; } = false;
 
