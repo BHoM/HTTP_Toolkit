@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="../../HTTP_Adapter/HTTP_Adapter.csproj" />
+  <Project Path="../../HTTP_Engine/HTTP_Engine.csproj" />
+  <Project Path="../../HTTP_oM/HTTP_oM.csproj" />
+  <Project Path="HTTP_Adapter_Test/HTTP_Adapter_Tests.csproj" />
+  <Project Path="HTTP_Toolkit_TestAPI/HTTP_Toolkit_TestAPI.csproj" />
+</Solution>
