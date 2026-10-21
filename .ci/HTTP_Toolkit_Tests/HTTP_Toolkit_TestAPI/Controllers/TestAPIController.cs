@@ -1,6 +1,7 @@
 using BH.oM.Base;
 using BH.oM.Geometry;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace HTTP_Toolkit_TestAPI.Controllers
 {
@@ -73,28 +74,31 @@ namespace HTTP_Toolkit_TestAPI.Controllers
         [HttpPost("parameters")]
         [Consumes("application/bhom")]
         [Produces("application/bhom")]
-        public ActionResult<BHoMObject> PostWithParameters([FromBody]BHoMObject bhomObject, [FromQuery]string parameter1, [FromQuery]int parameter2)
+        public ActionResult<CustomObject> PostWithParameters([FromBody]CustomObject customObject, [FromQuery]string parameter1, [FromQuery]int parameter2)
         {
             _logger.LogInformation("POST with parameters {parameter1}, {parameter2} called.", parameter1, parameter2);
 
-            bhomObject.CustomData["parameter1"] = parameter1;
-            bhomObject.CustomData["parameter2"] = parameter2;
+            customObject.CustomData["parameter1"] = parameter1;
+            customObject.CustomData["parameter2"] = parameter2;
 
-            return Ok(bhomObject);
+            return Ok(customObject);
         }
+
+        /***************************************************/
 
         [HttpPost("producesAndAcceptsJson")]
         [Consumes("application/json")]
-        [Produces("application/json")]
-        public ActionResult<string> GetJson([FromBody]string json)
+        public ActionResult<string> GetJson([FromBody]JsonElement value)
         {
-            object obj = BH.Engine.Serialiser.Convert.FromJson(json);
+            object obj = JsonSerializer.Deserialize<Point>(value);
+
+            _logger.LogInformation("Input json {json} deserialised to {objType}", value, obj.GetType().Name);
 
             if (obj is not Point p)
                 return Problem("Provided string was not valid json/deserialised to incorrect object.", statusCode:400);
 
             p.Y = 4;
-            json = BH.Engine.Serialiser.Convert.ToJson(p);
+            string json = BH.Engine.Serialiser.Convert.ToJson(p);
             return Ok(json);
         }
     }
