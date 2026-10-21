@@ -21,8 +21,10 @@
  */
 
 using BH.oM.Adapters.HTTP;
+using BH.oM.Base.Attributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Net;
 using System.Net.Http;
 
@@ -42,6 +44,7 @@ namespace BH.Adapter.HTTP
         /**** Constructors                              ****/
         /***************************************************/
 
+        [Description("Deafult HTTP adapter with an empty base address, Requests and action configs must set the address when pushing/pulling objects.")]
         public HTTPAdapter()
         {
             // Use TLS 1.2 and TLS 1.3 (if available). Deprecated protocols not supported any longer: SSL3, TLS 1.0, TLS 1.1.
@@ -51,6 +54,9 @@ namespace BH.Adapter.HTTP
         }
 
         /***************************************************/
+
+        [Description("HTTP adapter using the specified base address. For specific http resources, add paths to the requests or action config when pushing/pulling objects.")]
+        [Input("baseAddress", "The base address for this adapter to use.")]
         public HTTPAdapter(string baseAddress)
         {
             // Use TLS 1.2 and TLS 1.3 (if available). Deprecated protocols not supported any longer: SSL3, TLS 1.0, TLS 1.1.
@@ -61,6 +67,8 @@ namespace BH.Adapter.HTTP
 
         /***************************************************/
 
+        [Description("HTTP adapter using the specified HttpClient. Allows using a customised HttpClient for making requests.")]
+        [Input("httpClient", "The custom HttpClient for this adapter to use.")]
         public HTTPAdapter(HttpClient httpClient)
         {
             // Use TLS 1.2 and TLS 1.3 (if available). Deprecated protocols not supported any longer: SSL3, TLS 1.0, TLS 1.1.
