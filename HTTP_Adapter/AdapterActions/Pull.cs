@@ -29,6 +29,7 @@ using BH.oM.Adapter;
 using BH.oM.Base;
 using BH.oM.Data.Requests;
 using BH.oM.Adapters.HTTP;
+using System;
 
 namespace BH.Adapter.HTTP
 {
@@ -45,31 +46,41 @@ namespace BH.Adapter.HTTP
             return Pull(request as dynamic, actionConfig);
         }
 
-
         /***************************************************/
         /**** Public Methods                            ****/
         /***************************************************/
 
         public IEnumerable<object> Pull(GetRequest request, ActionConfig actionConfig)
         {
-            string response = Compute.MakeRequest(request);
+            if (!(actionConfig is HttpPullConfig config))
+                config = new HttpPullConfig();
 
-            if (response == null)
-                return new List<BHoMObject>();
+            Uri requestUri = ConstructUri(request.BaseUrl, request.Parameters);
 
-            // check if the response is a valid json
-            if (response.StartsWith("{") || response.StartsWith("["))
-                return new List<object>() { Engine.Serialiser.Convert.FromJson(response) };
+            HttpRequestMessage requestMessage = Create.ConstructHttpRequestMessage(HttpMethod.Get, requestUri, request.Headers);
 
-            else
-                return new List<object>() { response };
+            using (HttpResponseMessage response = m_httpClient.SendAsync(requestMessage).ConfigureAwait(false).GetAwaiter().GetResult())
+            {
+                //assert success
+                if (!response.IsSuccessStatusCode)
+                {
+                    Engine.Base.Compute.RecordError($"GET request failed with code {response.StatusCode}: {response.ReasonPhrase}");
+                    return new List<object>();
+                }
+
+                if (config.ForceDeserialiseAsBHoM || response.Content.Headers.ContentType.MediaType == "application/bhom")
+                    return Compute.DeserialiseAsBHoMAsync(response).ConfigureAwait(false).GetAwaiter().GetResult();
+
+                string responseString = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+                return new List<object>() { responseString };
+            }
         }
 
         /***************************************************/
 
-        public IEnumerable<object> Pull(BatchRequest requests, HTTPConfig config)
+        public IEnumerable<object> Pull(BatchRequest requests, ActionConfig actionConfig)
         {
-            if (config == null)
+            if (!(actionConfig is HTTPConfig config))
                 config = new HTTPConfig();
 
             string[] response = new string[requests.Requests.Count];
@@ -77,7 +88,7 @@ namespace BH.Adapter.HTTP
             using (HttpClient client = new HttpClient() { Timeout = config.Timeout })
             {
                 List <GetRequest> getRequests = requests.Requests.OfType<GetRequest>().ToList();
-                response = Task.WhenAll(getRequests.Select(x => Compute.MakeRequestAsync(x, client))).GetAwaiter().GetResult();
+                response = Task.WhenAll(getRequests.Select(x => Engine.Adapters.HTTP.Compute.MakeRequestAsync(x, client))).GetAwaiter().GetResult();
                 client.CancelPendingRequests();
                 client.Dispose();
             }
